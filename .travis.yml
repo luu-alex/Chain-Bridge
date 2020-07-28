@@ -49,15 +49,7 @@ jobs:
         - docker ps
         - make test-e2e
 
-    - stage: "Docker Deploy (chainsafe/chainbridge)"
-      script:
-        - docker build -t chainsafe/chainbridge .
-        - docker run chainsafe/chainbridge:latest --help
       deploy:
-        - provider: script
-          script: TARGET=default ./scripts/ci_docker.sh
-          on:
-            branch: master
         - provider: script
           script: TAG=$TRAVIS_TAG TARGET=release ./scripts/ci_docker.sh
           on:
